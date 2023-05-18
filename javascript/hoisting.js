@@ -78,3 +78,28 @@ console.log(`I can eat ${getMyFavFood()} all day long`);
         }
     * The reason to all these is let maintain block scope, whereas var maintain function scope. Var gets hoisted to the top of the function, but let gets hoisted to the top of the block.
 */
+
+// EXAMPLE 3 (function hoisting)
+myTeam();
+function myTeam() {
+    console.log("FC Barcelona");
+}
+/* 
+    * The above code works fine, because function declaration gets hoisted to the top of the code
+    * let's visualize the process:
+*/
+
+// EXAMPLE 4 (function hoisting)
+myPlayer();
+function myPlayer() { 
+    player = "Lionel Messi";
+    console.log(player);
+}
+// here as player is not declared, it will look for it in the global scope, as it is not found there, it will be declared in the global scope automatically.
+myPlayer2();
+function myPlayer2() {
+    player = "Lionel Messi";
+    var player;
+    console.log(player);
+}
+// here as player is declared under the function, it will be hoisted to the top of the function, and the value undefined will be assigned to it. So the variable player will not try to find it in the global scope, and will not be declared in the global scope automatically.
