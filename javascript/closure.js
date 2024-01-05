@@ -1,19 +1,18 @@
-var name = "John Doe";
-var age = 42;
+function stopWatch() {
+    var startTime = Date.now();
 
-var printPersonDetails = function () { 
-    console.log("Name: " + name + ", Age: " + age);
-}
-
-printPersonDetails();
-
-// The above code is the simplest example of a closure. We can think of closure as a child who has access to the properties of its parent. In the above example, the function printPersonDetails is a child of the global scope. It has access to the variables name and age, which are defined in the global scope. This is sometimes known as lexical scoping.
-// Through console.dir(printPersonDetails), we can see that the function printPersonDetails has access to the global scope. This means a child always carries a reference to its parent. This is the reason why we can access the variables name and age inside the function printPersonDetails.
-
-var printPersonDetails2 = function () { 
-    return function () { 
-        console.log("Name: " + name + ", Age: " + age);
+    function getDelay() { 
+        console.log(Date.now() - startTime);
     }
+
+    return getDelay;
 }
 
-var print = printPersonDetails2();
+var timer = stopWatch();
+
+// fake delay
+for (var i = 0; i < 100000000; i++) {
+    var foo = Math.random() * 10000000;
+}
+
+timer(); // prints the time elapsed from the timer creation

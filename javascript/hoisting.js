@@ -86,7 +86,6 @@ function myTeam() {
 }
 /* 
     * The above code works fine, because function declaration gets hoisted to the top of the code
-    * let's visualize the process:
 */
 
 // EXAMPLE 4 (function hoisting)
