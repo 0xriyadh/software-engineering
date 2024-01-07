@@ -1,11 +1,15 @@
-var friendsFavFood = "Burger";
-var myFavFood = "Pizza";
-
-function getMyFavFood() {
-    if (!myFavFood) {
-        var myFavFood = friendsFavFood;
-    }
-    return myFavFood;
+const takeOrder = () => {
+    
 }
 
-console.log(`I can eat ${getMyFavFood()} all day long`);
+const processOrder = (customer) => {
+    console.log(`Processing order for customer 1`);
+    setTimeout(() => {
+        console.log(`Cooking completed`);
+    }, 3000);
+    console.log(`Order processed for customer 1`);
+}
+
+console.log(`Take order for customer 1`);
+processOrder();
+console.log(`Order placed`);
