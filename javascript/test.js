@@ -1,3 +1,7 @@
-// test file for javascript
-// testing git signing commit
-// Finally done with signing commit I guess
+function hello() {
+  var msg = "Hello, World!";
+}
+
+hello();
+var msg;
+console.log(msg);
