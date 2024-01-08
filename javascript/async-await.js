@@ -1,18 +1,20 @@
 function friendlyFunction() {
-  return 'Hello World';
+    return "Hello World";
 }
 
 console.log(friendlyFunction()); // Hello World
 
 // Now we will make this function asynchronous. This will return a promise.
-async function asyncFriendlyFunction() { 
-  return 'Hello World';
+async function asyncFriendlyFunction() {
+    return "Hello World";
 }
 console.log(asyncFriendlyFunction()); // Promise { 'Hello World' }
 
 
+
+
 // Converting the Promise Example to Async/Await
-const hasMeeting = false;
+const hasMeeting = true;
 const meeting = new Promise((resolve, reject) => {
     if (!hasMeeting) {
         const meetingDetails = {
@@ -47,12 +49,16 @@ const sendEmail = (calendar) => {
 //     });
 
 
-async function myMeeting() { 
-  const meetingDetails = await meeting;
-  const calendar = await addToCalendar(meetingDetails);
-  const email = await sendEmail(calendar);
-  console.log(email);
+async function myMeeting() {
+    try {
+        const meetingDetails = await meeting;
+        const calendar = await addToCalendar(meetingDetails);
+        const email = await sendEmail(calendar);
+        console.log(email);
+    } catch (err) {
+        console.log(err.message);
+    }
 }
 
 myMeeting();
-console.log("Hello World! \n\n"); // This will be printed first, because the promise is asynchronous. 
+console.log("Hello World! \n\n"); // This will be printed first, because the promise is asynchronous.
