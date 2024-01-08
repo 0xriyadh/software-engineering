@@ -33,8 +33,14 @@ const addToCalendar = (meetingDetails) => {
     return Promise.resolve(calendar);
 };
 
+const sendEmail = (calendar) => { 
+    const email = `Your meeting has been scheduled!!! \n\nMeeting Details:\n${calendar}`;
+    return Promise.resolve(email);
+}
+
 meeting
     .then(addToCalendar)
+    .then(sendEmail)
     .then((res) => {
         // resolved data
         // console.log(JSON.stringify(res));
@@ -45,4 +51,4 @@ meeting
         console.log(err.message);
     });
 
-console.log("Hello World!"); // This will be printed first, because the promise is asynchronous.
+console.log("Hello World! \n\n"); // This will be printed first, because the promise is asynchronous.
