@@ -19,6 +19,40 @@ let patients = [
         ],
     },
 ];
+// a middleware to find the average time my server takes to handle a request
+function averageTime(req, res, next) { 
+    const start = Date.now();
+    next();
+    const end = Date.now();
+    console.log(`Average time: ${end - start}ms`);
+}
+app.use(averageTime);
+
+function universalMiddleware(req, res, next) { 
+    console.log("I am a Universal middleware");
+    next();
+}
+app.use(universalMiddleware);
+
+function middleware1(req, res, next) {
+    console.log("First middleware");
+    next();
+}
+function middleware2(req, res, next) {
+    console.log("Second middleware");
+    next();
+}
+
+app.get("/test", middleware1, middleware2, (req, res, next) => {
+    console.log("Third middleware");
+    res.json("All middlewares have been executed");
+});
+
+// If we do not need middleware1 here, we can just exclude it
+app.get("/test2", middleware2, (req, res, next) => {
+    console.log("Third middleware");
+    res.json("All middlewares have been executed");
+});
 
 // for get we usually get data through query and headers
 app.get("/", (req, res) => {
