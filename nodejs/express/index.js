@@ -20,25 +20,37 @@ let patients = [
     },
 ];
 
-// for get we usually get data through query
+// for get we usually get data through query and headers
 app.get("/", (req, res) => {
     const patientName = req.query.patient; // patient name
-    if (patientName) {
-        const patient = patients.find((p) =>
-            p.name.toLowerCase().includes(patientName.toLocaleLowerCase())
-        );
-        const totalKidneys = patient.kidneys.length;
-        const healthyKidneys = patient.kidneys.filter((k) => k.healthy).length;
-        const unhealthyKidneys = totalKidneys - healthyKidneys;
-
-        res.json({
-            totalKidneys,
-            healthyKidneys,
-            unhealthyKidneys,
+    const username = req.headers.username; // username
+    const password = req.headers.password; // password
+    if (username !== "admin" || password !== "admin") {
+        // throw an error if the username or password is wrong
+        res.status(401).json({
+            message: "Username or password is wrong",
         });
-    } else {
-        res.json({});
+        return;
     }
+    if (!patientName) {
+        // throw an error if the patient name is not provided
+        res.status(411).json({
+            message: "Patient name is required",
+        });
+        return;
+    }
+    const patient = patients.find((p) =>
+        p.name.toLowerCase().includes(patientName.toLocaleLowerCase())
+    );
+    const totalKidneys = patient.kidneys.length;
+    const healthyKidneys = patient.kidneys.filter((k) => k.healthy).length;
+    const unhealthyKidneys = totalKidneys - healthyKidneys;
+
+    res.json({
+        totalKidneys,
+        healthyKidneys,
+        unhealthyKidneys,
+    });
 });
 
 // for post we usually get data through body
