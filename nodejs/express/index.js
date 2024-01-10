@@ -20,7 +20,7 @@ let patients = [
     },
 ];
 // a middleware to find the average time my server takes to handle a request
-function averageTime(req, res, next) { 
+function averageTime(req, res, next) {
     const start = Date.now();
     next();
     const end = Date.now();
@@ -28,7 +28,16 @@ function averageTime(req, res, next) {
 }
 app.use(averageTime);
 
-function universalMiddleware(req, res, next) { 
+// a middleware to find the number of requests my server has handled
+let reqCount = 0;
+function numberOfRequests(req, res, next) {
+    reqCount++;
+    console.log(`Number of requests: ${reqCount}`);
+    next();
+}
+app.use(numberOfRequests);
+
+function universalMiddleware(req, res, next) {
     console.log("I am a Universal middleware");
     next();
 }
