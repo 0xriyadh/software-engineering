@@ -3,7 +3,7 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
-// to get the body of the request we need to use body-parser
+// middleware to get the body of the request we need to use body-parser
 app.use(express.json()); // to support JSON-encoded bodies
 
 let patients = [
