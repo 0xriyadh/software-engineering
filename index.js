@@ -1,1 +1,3 @@
-let a = 10;
+(function () {
+    var a = 50;
+})();

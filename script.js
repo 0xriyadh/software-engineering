@@ -1,3 +1,4 @@
-let a = 50;
-var b = 20;
-console.log(a + b);
+(function () {
+    var b = 10;
+    console.log(a + b);
+})();
