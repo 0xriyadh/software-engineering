@@ -22,7 +22,7 @@ function progress(callback) {
         } else {
             console.log("Course failed.");
         }
-    }, 3000);
+    }, 9000);
 }
 
 function getCertificate() {

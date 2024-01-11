@@ -20,7 +20,7 @@ fs.writeFile("./index.html", htmlContent, (err) => {
             res.end(content);
         });
     });
-    server.listen(3000, () => {
-        console.log("Listening on port 3000!");
+    server.listen(9000, () => {
+        console.log("Listening on port 9000!");
     });
 });

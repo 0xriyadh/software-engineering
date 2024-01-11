@@ -2,7 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const app = express();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 9000;
 
 const jwtPassword = "jskdfh234329dfjkb23312sdfs!(*#@&$jksdf324df";
 const users = [
@@ -34,7 +34,7 @@ app.post("/signIn", (req, res) => {
     res.json({ accessToken });
 });
 
-app.get("/users", (req, res) => { 
+app.get("/users", (req, res) => {
     console.log(req.headers.authorization);
     const token = req.headers.authorization;
     try {

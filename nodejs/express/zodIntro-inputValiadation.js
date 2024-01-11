@@ -2,7 +2,7 @@ const express = require("express");
 const { z } = require("zod");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 9000;
 
 // defining a schema for the kidneys
 const KidneySchema = z.object({
