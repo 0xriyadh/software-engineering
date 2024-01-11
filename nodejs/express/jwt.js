@@ -39,7 +39,12 @@ app.get("/users", (req, res) => {
     const token = req.headers.authorization;
     try {
         const decoded = jwt.verify(token, jwtPassword);
-        res.json(users);
+        console.log(decoded);
+        // send the users who is not logged in
+        const filteredUsers = users.filter((user) => {
+            return user.username !== decoded.username;
+        });
+        res.json(filteredUsers);
     } catch (error) {
         console.log(error);
         res.send(error);
