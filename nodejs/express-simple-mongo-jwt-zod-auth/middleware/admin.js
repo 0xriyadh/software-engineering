@@ -1,7 +1,11 @@
 const jwt = require("jsonwebtoken");
 
 const adminMiddleware = (req, res, next) => {
-    const token = req.headers.authorization;
+    const { authorizationSchemeType, token } =
+        req.headers.authorization.split(" ");
+    if (authorizationSchemeType !== "Bearer") { 
+        return res.status(401).send({ message: "Unauthorized" });
+    }
     try {
         const decodedValue = jwt.verify(token, process.env.JWT_SECRET);
         req.admin = decodedValue;
