@@ -14,3 +14,5 @@ const userMiddleware = async (req, res, next) => {
         res.status(401).send({ message: "Unauthorized" });
     }
 };
+
+module.exports = userMiddleware;
