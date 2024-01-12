@@ -58,6 +58,22 @@ app.post("/login", async (req, res) => {
 });
 
 app.listen(3000, () => console.log("Server is listening on port 3000"));
-// step 1: import mongoose
-// step 2: connect to the database
-// step 3: create a schema
+
+/* 
+step 1: import mongoose
+    const mongoose = require("mongoose");
+step 2: connect to the database
+    mongoose.connect(
+        `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.rnw2g.mongodb.net/test-app`
+    );
+step 3: create a schema / model
+    const UserSchema = new mongoose.Schema({
+        username: String,
+        email: String,
+        password: String,
+    });
+step 4: create a new instance or object of the model
+    const User = mongoose.model("User", UserSchema);
+step 5: save the object to the database
+    user.save().then((response) => console.log(response));
+*/
