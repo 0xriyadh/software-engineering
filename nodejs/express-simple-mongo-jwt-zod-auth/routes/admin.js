@@ -23,13 +23,13 @@ router.post("/login", async (req, res) => {
     if (!existingAdmin) {
         return res
             .status(400)
-            .send({ message: "Invalid email or password eeee" });
+            .send({ message: "Invalid email or password" });
     }
     const validPassword = existingAdmin.password === password;
     if (!validPassword) {
         return res
             .status(400)
-            .send({ message: "Invalid email or password ppp" });
+            .send({ message: "Invalid email or password" });
     }
     const token = jwt.sign(
         { id: existingAdmin._id, email: existingAdmin.email },
