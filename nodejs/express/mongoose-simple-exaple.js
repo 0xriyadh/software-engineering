@@ -8,6 +8,10 @@ const app = express();
 
 env.config();
 
+const port = process.env.PORT || 5000;
+
+app.use(express.json());
+
 mongoose.connect(
     `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.rnw2g.mongodb.net/test-app`
 );
@@ -18,10 +22,23 @@ const User = mongoose.model("User", {
     password: String,
 });
 
-app.use(express.json());
+const signupSchema = z.object({
+    username: z.string().min(1, "Username is required"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters long"),
+});
+
+const loginSchema = z.object({
+    username: z.string().min(1, "Username is required"),
+    password: z.string().min(6, "Password must be at least 6 characters long"),
+});
 
 app.post("/signup", async (req, res) => {
-    const { username, email, password } = req.body;
+    const validationResult = signupSchema.safeParse(req.body);
+    if (!validationResult.success) {
+        return res.status(400).json({ errors: validationResult.error.errors });
+    }
+    const { username, email, password } = validationResult.data;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -39,17 +56,21 @@ app.post("/signup", async (req, res) => {
     });
 });
 
-app.post("/login", async (req, res) => { 
+app.post("/login", async (req, res) => {
     const { username, password } = req.body;
-    
+
     const existingUser = await User.findOne({ username });
     if (!existingUser) {
-        return res.status(400).json({ message: "Invalid username or password" });
+        return res
+            .status(400)
+            .json({ message: "Invalid username or password" });
     }
 
     const validPassword = existingUser.password === password;
     if (!validPassword) {
-        return res.status(400).json({ message: "Invalid username or password" });
+        return res
+            .status(400)
+            .json({ message: "Invalid username or password" });
     }
 
     const token = jwt.sign(
@@ -59,7 +80,7 @@ app.post("/login", async (req, res) => {
     res.json({ token });
 });
 
-app.listen(3000, () => console.log("Server is listening on port 3000"));
+app.listen(port, () => console.log(`Server is running on port ${port}`));
 
 /* 
 step 1: import mongoose
