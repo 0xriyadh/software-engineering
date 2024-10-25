@@ -1,7 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
+const env = require("dotenv");
 const app = express();
+
+env.config();
 
 mongoose.connect(
     `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.rnw2g.mongodb.net/test-app`

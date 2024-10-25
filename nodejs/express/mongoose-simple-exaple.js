@@ -3,8 +3,10 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const { z } = require("zod");
 const bcrypt = require("bcrypt");
-
+const env = require("dotenv");
 const app = express();
+
+env.config();
 
 mongoose.connect(
     `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.rnw2g.mongodb.net/test-app`
