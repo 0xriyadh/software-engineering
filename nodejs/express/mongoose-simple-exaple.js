@@ -57,7 +57,11 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-    const { username, password } = req.body;
+    const validationResult = loginSchema.safeParse(req.body);
+    if (!validationResult.success) {
+        return res.status(400).json({ errors: validationResult.error.errors });
+    }
+    const { username, password } = validationResult.data;
 
     const existingUser = await User.findOne({ username });
     if (!existingUser) {
