@@ -1,7 +1,10 @@
 const express = require("express");
+const env = require("dotenv");
 const app = express();
 
-const port = process.env.PORT || 9000;
+env.config();
+
+const port = process.env.PORT || 5000;
 
 // middleware to get the body of the request we need to use body-parser
 app.use(express.json()); // to support JSON-encoded bodies
