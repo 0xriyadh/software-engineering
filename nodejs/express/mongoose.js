@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 // the name after the slash is the name of the database, for our example it is test-app
-// mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}.rnw2g.mongodb.net/test-app
 mongoose.connect(
-    `mongodb+srv://test-user:n3VTiTTCqWFPn74y@cluster0.rnw2g.mongodb.net/test-app`
+    `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.rnw2g.mongodb.net/test-app`
 );
 
 // mongoose's model method can take 3 arguments
@@ -15,7 +15,7 @@ const User = mongoose.model("Cat", { name: String });
 
 // the model method returns a constructor function
 // the constructor function can be used to create new documents
-const kitty = new User({ name: "Rouch" });
+const kitty = new User({ name: "Vim" });
 
 // the constructor function has a save method that can be used to save the document to the database
 // the save method returns a promise
