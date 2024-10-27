@@ -1,19 +1,20 @@
-const fetchPostsBtn = document.getElementById("fetch-post");
-const container = document.getElementById("container");
+function debounce(func, delay) {
+    let timeoutId;
+    console.log("debounce");
+    return function (...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            func(...args);
+        }, delay);
+    };
+}
 
-// Bad Approach (less readable)
-const fetchPosts1 = async () => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-        .then((response) => response.json())
-        .then((posts) => console.log("FetchPosts1: ", posts));
-};
-// Better Approach
-const fetchPosts2 = async () => {
-    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-    // response.json() returns a promise. This is used to catch the js
-    const posts = await response.json();
-    console.log("FetchPosts2: ", posts);
-};
+const debounceSearch = debounce((query) => {
+    console.log(`Searching for: ${query}`);
+    // Make API call with the search query
+}, 300);
 
-fetchPostsBtn.addEventListener("click", fetchPosts1);
-fetchPostsBtn.addEventListener("click", fetchPosts2);
+const searchInput = document.getElementById("search-input");
+searchInput.addEventListener("input", (event) => {
+    debounceSearch(event.target.value);
+});
