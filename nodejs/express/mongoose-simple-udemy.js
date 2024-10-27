@@ -54,8 +54,7 @@ app.post("/users", async (req, res) => {
 
 // create a course
 app.post("/courses", async (req, res) => {
-    const course = new Course(req.body);
-    const response = await course.save();
+    const course = await Course.create(req.body);
     res.send(response);
 });
 
