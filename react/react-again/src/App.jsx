@@ -1,22 +1,30 @@
-import { useState } from "react";
-import Todo from "./components/Todo";
+import PropTypes from "prop-types";
+import { memo, useState } from "react";
 
 function App() {
-    const [todos, setTodos] = useState([{ id: 1 }]);
-    const handleOnClick = () => {
-        setTodos([...todos, { id: todos.length + 1 }]);
+    const [title, setTitle] = useState("My name is Mahadi");
+    const changeTitle = () => {
+        setTitle("Yo, My name is RIYADH");
     };
     return (
         <>
-            <h1>All Todos</h1>
-            {/* add todo */}
-            <button onClick={handleOnClick}>Add Todo</button>
-            {/* todo list */}
-            {todos?.map((todo) => (
-                <Todo key={todo.id} num={todo.id} />
-            ))}
+            <button onClick={changeTitle}>Change Title</button>
+            <Header title={title} />
+            <Header title={`Yo static title 1`} />
+            <Header title={`Yo static title 2`} />
+            <Header title={`Yo static title 3`} />
+            <Header title={`Yo static title 4`} />
         </>
     );
 }
+
+const Header = memo(function Header({ title }) {
+    console.log(`Header rendered with ${title}`);
+    return <h1>{title}</h1>;
+});
+
+Header.propTypes = {
+    title: PropTypes.string.isRequired,
+};
 
 export default App;
