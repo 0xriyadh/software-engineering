@@ -4,7 +4,12 @@ import {
     useRecoilValue,
     useSetRecoilState,
 } from "recoil";
-import { todoFormState, todoListState } from "../store/todos";
+import {
+    filteredTodoListState,
+    todoFilterState,
+    todoFormState,
+    todoListState,
+} from "../store/todos";
 import { useCallback } from "react";
 
 function App() {
@@ -16,6 +21,7 @@ function App() {
                 </h1>
                 <RecoilRoot>
                     <AddTodo />
+                    <SetFilter />
                     <ShowTodos />
                 </RecoilRoot>
             </div>
@@ -86,14 +92,33 @@ function AddTodo() {
     );
 }
 
+function SetFilter() {
+    const setFilter = useSetRecoilState(todoFilterState);
+
+    const handleFilterChange = (e) => {
+        setFilter(e.target.value);
+    };
+
+    return (
+        <div className="flex justify-center items-center my-4 space-x-4">
+            <input
+                type="text"
+                placeholder="Search Todo"
+                onChange={handleFilterChange}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-400 focus:border-blue-400 focus:bg-blue-50 p-2.5 block"
+            />
+        </div>
+    );
+}
+
 function ShowTodos() {
-    const todos = useRecoilValue(todoListState);
+    const filteredTodos = useRecoilValue(filteredTodoListState);
 
     return (
         <>
             <div className="flex justify-center items-center my-4 space-x-4">
                 <ul>
-                    {todos.map((todo) => (
+                    {filteredTodos.map((todo) => (
                         <li key={todo.id}>
                             <div>{todo.title}</div>
                             <div>{todo.description}</div>
