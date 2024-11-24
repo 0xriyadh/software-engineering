@@ -1,5 +1,11 @@
-import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
-import { todoListState } from "../store/todos";
+import {
+    RecoilRoot,
+    useRecoilState,
+    useRecoilValue,
+    useSetRecoilState,
+} from "recoil";
+import { todoFormState, todoListState } from "../store/todos";
+import { useCallback } from "react";
 
 function App() {
     return (
@@ -18,11 +24,11 @@ function App() {
 }
 
 function AddTodo() {
+    const [formState, setFormState] = useRecoilState(todoFormState);
     const setTodos = useSetRecoilState(todoListState);
 
     const handleAddTodo = () => {
-        const title = document.getElementById("todo-title").value;
-        const description = document.getElementById("todo-description").value;
+        const { title, description } = formState;
 
         if (title === "" || description === "") {
             return;
@@ -36,20 +42,38 @@ function AddTodo() {
                 description: description,
             },
         ]);
+
+        // Reset form state
+        setFormState({ title: "", description: "" });
     };
+
+    const handleInputChange = useCallback(
+        (e) => {
+            const { id, value } = e.target;
+            setFormState((prevState) => ({
+                ...prevState,
+                [id]: value,
+            }));
+        },
+        [setFormState]
+    );
 
     return (
         <div className="flex justify-center items-center my-4 space-x-4">
             <input
                 type="text"
-                id="todo-title"
+                id="title"
                 placeholder="Todo Title"
+                value={formState.title}
+                onChange={handleInputChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-400 focus:border-blue-400 focus:bg-blue-50 p-2.5 block"
             />
             <input
                 type="text"
-                id="todo-description"
+                id="description"
                 placeholder="Todo Description"
+                value={formState.description}
+                onChange={handleInputChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-400 focus:border-blue-400 focus:bg-blue-50 p-2.5 block"
             />
             <button
