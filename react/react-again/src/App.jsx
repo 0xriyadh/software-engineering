@@ -1,16 +1,20 @@
-import { useState } from "react";
-import useInterval from "./hooks/useInterval.jsx";
+import { useEffect, useState } from "react";
+import useDebounce from "./hooks/useDebounce";
 
 export default function Page() {
-    const [count, setCount] = useState(0);
+    const [inputValue, setInputValue] = useState("");
+    const debouncedValue = useDebounce(inputValue, 500); // 500 milliseconds debounce delay
 
-    useInterval(() => {
-        setCount(count + 1);
-    }, 1000);
-
+    // Use the debouncedValue in your component logic, e.g., trigger a search API call via a useEffect
+    useEffect(() => {
+        console.log("sending search request for: ", debouncedValue);
+    }, [debouncedValue]);
     return (
-        <>
-            <h1>Timer is at {count}</h1>
-        </>
+        <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="Search..."
+        />
     );
 }
