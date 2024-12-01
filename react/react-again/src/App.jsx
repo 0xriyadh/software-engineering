@@ -1,16 +1,13 @@
-import { useEffect } from "react";
-import ContextAPI from "./components/ContextAPI/ContextAPI.jsx";
+import useDimensions from "./hooks/useDimensions.jsx";
 
 export default function Page() {
-    useEffect(() => {
-        window.addEventListener("offline", () => {
-            console.log("You are offline");
-        });
-        console.log(window.navigator.onLine);
-    }, []);
+    const dimensions = useDimensions();
+
     return (
         <>
-            <ContextAPI />
+            <h1>Window Dimensions</h1>
+            <p>Width: {dimensions.width}</p>
+            <p>Height: {dimensions.height}</p>
         </>
     );
 }
