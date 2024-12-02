@@ -1,7 +1,7 @@
 interface USER {
     name: string;
     age: number;
-    email: string;
+    email?: string;
 }
 
 function isLegal(user: USER): boolean {
