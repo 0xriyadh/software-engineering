@@ -12,5 +12,9 @@ enum KeyInput {
     RIGHT,
 }
 function doSomething(keyPressed: KeyInput) {
-    console.log(keyPressed);
+    if (keyPressed === KeyInput.UP) {
+        console.log("UP");
+    } else if (keyPressed === KeyInput.DOWN) {
+        console.log("DOWN");
+    }
 }
