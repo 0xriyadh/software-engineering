@@ -27,13 +27,44 @@ function firstElementFix1(arr: InputFix): Input {
 const firstNameFix1 = firstElementFix1(["Riyadh", "John", "Doe"]);
 // console.log(firstNameFix1.toUpperCase()); // however still getting error here, error ❌
 
-// ⭐️ Better Fix    
+// ⭐️ Better Fix
+// generic function
+// creating multiple variations of the function, maybe one for numbers and one for strings
 function firstElementFix<T>(arr: T[]): T {
     return arr[0];
 }
 
-const valueFix = firstElementFix([1, 2, 3]); // number
-console.log(valueFix / 2); // no error
+const firstNumber = firstElementFix<number>([1, 2, 3]); // number
+console.log(firstNumber / 2); // no error
 
-const firstNameFix = firstElementFix(["Riyadh", "John", "Doe"]); // string
-console.log(firstNameFix.toUpperCase()); // no error
+const firstString = firstElementFix<string>(["Riyadh", "John", "Doe"]); // string
+console.log(firstString.toUpperCase()); // no error
+
+const firstBoolean = firstElementFix<boolean>([true, false, true]); // boolean
+console.log(firstBoolean); // no error
+
+interface User {
+    name: string;
+    age: number;
+    email?: string;
+}
+
+const users: User[] = [
+    {
+        name: "Riyadh",
+        age: 25,
+        email: "riyadh@gmail.com",
+    },
+    {
+        name: "John",
+        age: 30,
+    },
+    {
+        name: "Doe",
+        age: 35,
+        email: "does@gmail.com",
+    },
+];
+
+const firstUser = firstElementFix<User>(users); // User
+console.log(firstUser.name.toLowerCase()); // no error
