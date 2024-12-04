@@ -1,1 +1,1 @@
-{"root":["./src/create-table.ts","./src/get-data.ts","./src/insert-data.ts","./src/utils.ts"],"version":"5.7.2"}
+{"root":["./src/add-column.ts","./src/create-table.ts","./src/get-data.ts","./src/insert-data.ts","./src/update-todo.ts","./src/utils.ts"],"version":"5.7.2"}
