@@ -5,9 +5,13 @@ dotenv.config();
 
 export async function getClient() {
     try {
-        const client = new Client(
-            `postgres://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}/${process.env.PGDATABASE}`
-        );
+        const client = new Client({
+            host: process.env.PGHOST,
+            port: Number(process.env.PGPORT),
+            database: process.env.PGDATABASE,
+            user: process.env.PGUSER,
+            password: process.env.PGPASSWORD,
+        });
         await client.connect();
         return client;
     } catch (error) {
