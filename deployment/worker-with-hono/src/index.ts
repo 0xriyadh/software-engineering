@@ -12,11 +12,13 @@ async function authMiddleware(
     c: Context,
     next: Next
 ): Promise<Response | void> {
+    const initTime = new Date().getTime();
     if (c.req.header("Authorization") !== "Bearer 123") {
         c.status(401);
-        return c.text("Unauthorized");
     }
     await next();
+    const endTime = new Date().getTime();
+    console.log(`Request took ${(endTime - initTime) / 1000}ms`);
 }
 
 app.use(authMiddleware);
