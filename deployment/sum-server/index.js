@@ -6,12 +6,12 @@ app.use(cors());
 const todos = [{
   id: 1,
   title: "Todo 1",
-  description: "This is todo 1",
+  description: "to be or not to be that is the question!!!",
   completed: false,
 }, {
   id: 2,
   title: "Todo 2",
-  description: "This is todo 2",
+  description: "hahaha",
   completed: false,
 }, {
   id: 3,
